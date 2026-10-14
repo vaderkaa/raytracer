@@ -1,9 +1,9 @@
 ﻿namespace Raytracer;
 
-public struct Ray
+public readonly struct Ray
 {
-    public readonly Vector3 Origin { get; }
-    public readonly Vector3 Direction { get; }
+    public Vector3 Origin { get; }
+    public Vector3 Direction { get; }
 
     public Ray(Vector3 origin, Vector3 direction)
     {
