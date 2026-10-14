@@ -28,16 +28,13 @@ Nie ma tu żadnych klamerek `{}` z logiką. Interfejs nie mówi **jak** to zrobi
 public class Counter : IEnumerator
 ```
 
-Klasa `Counter` (Licznik) staje do walki i dopisuje po dwukropku `: IEnumerator`. Tym samym oficjalnie podpisuje umowę. Od tego momentu kompilator C# staje się bezlitosnym inspektorem. Zmusza klasę `Counter` do fizycznego napisania (zaimplementowania) wszystkich trzech wymaganych elementów.
-
+Klasa `Counter` (Licznik) staje do walki i dopisuje po dwukropku `: IEnumerator`. Tym samym oficjalnie podpisuje umowę. Od tego momentu kompilator C# staje się bezlitosnym inspektorem. Zmusza klasę `Counter` do fizycznego napisania (zaimplementowania) wszystkich trzech wymaganych elementów.   
 Gdybyś w klasie `Counter` napisała logikę dla `MoveNext` oraz `Current`, ale zapomniałabyś o `Reset`, kompilator natychmiast podkreśliłby klasę na czerwono, krzycząc: *"Obiecałaś spełnić wymagania interfejsu IEnumerator, a brakuje ci funkcji Reset!"*.
 *(Dlatego w Twoim kodzie twórca napisał `Reset()`, nawet jeśli w środku wyrzuca tylko błąd `NotSupportedException` – musiał dostarczyć funkcję, żeby spełnić kontrakt).*
 
 **Po co nam interfejsy, skoro mamy klasy abstrakcyjne?**
-To najważniejsze pytanie. W języku C# obowiązuje żelazna zasada: **klasa może mieć tylko jednego biologicznego rodzica** (może dziedziczyć tylko po jednej klasie bazowej). Twój `Car` nie mógłby dziedziczyć jednocześnie po `Vehicle` i po `Weapon`.
-
+To najważniejsze pytanie. W języku C# obowiązuje żelazna zasada: **klasa może mieć tylko jednego biologicznego rodzica** (może dziedziczyć tylko po jednej klasie bazowej). Twój `Car` nie mógłby dziedziczyć jednocześnie po `Vehicle` i po `Weapon`.   
 Ale klasa może podpisać **dowolną liczbę interfejsów**.
 Dzięki temu możesz zbudować obiekt tak:
-`public class Car : Vehicle, IDrivable, IWashable, ISellable`
-
+`public class Car : Vehicle, IDrivable, IWashable, ISellable`.   
 Dzięki temu silnik fizyczny potraktuje go jako coś, co umie jeździć (`IDrivable`), myjnia potraktuje go jako obiekt, który da się umyć (`IWashable`), a sklep potraktuje go jako towar, który ma cenę (`ISellable`). Interfejsy pozwalają łączyć zupełnie różne obiekty w grupy na podstawie tego, co potrafią zrobić.
