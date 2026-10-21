@@ -4,11 +4,11 @@
 
 `readonly` - gwarantuje, że oznaczony nim element (zmienna, właściwość lub cała struktura) może otrzymać wartość tylko jeden raz podczas tworzenia w konstruktorze, po czym zostaje trwale zablokowany przed jakimikolwiek zmianami
 
+### Interface
+
 Interfejs to nic innego jak **pusty kontrakt**.   
 Kiedy przed chwilą rozmawiałyśmy o klasach abstrakcyjnych (Pojazd), określałyśmy to, **kim ktoś jest** (Samochód *jest* Pojazdem). Z kolei interfejs określa wyłącznie to, **co dany obiekt potrafi robić**, całkowicie ignorując to, czym ten obiekt fizycznie jest.   
 Najlepszą analogią w prawdziwym świecie jest standard USB. Klawiatura, pendrive, myszka i drukarka to zupełnie inne przedmioty, służące do innych rzeczy (miałyby inne klasy bazowe). Ale wszystkie one "podpisały kontrakt" o nazwie `IUsbCompatible`. Komputer nie musi wiedzieć, czym jest dane urządzenie – widzi certyfikat USB, więc wie, że może z nim rozmawiać.
-
-### Interface
 
 **1. Kontrakt (Interfejs `IEnumerator`)**
 
