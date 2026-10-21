@@ -19,7 +19,7 @@ public struct Vector3
     public static Vector3 operator +(Vector3 v, Vector3 u) => new Vector3(v.X + u.X, v.Y + u.Y, v.Z + u.Z);
     public static Vector3 operator -(Vector3 v, Vector3 u) => new Vector3(v.X - u.X, v.Y - u.Y, v.Z - u.Z);
     public static Vector3 operator *(Vector3 v, float k) => new Vector3(k * v.X, k * v.Y, k * v.Z);
-    public static Vector3 operator *(float k, Vector3 v) => k * v;
+    public static Vector3 operator *(float k, Vector3 v) => v * k;
     public static Vector3 operator /(Vector3 v, float k) => (1.0f / k) * v;
     public static Vector3 operator *(Vector3 v, Vector3 u) => new Vector3(v.X * u.X, v.Y * u.Y, v.Z * u.Z);
     public float LengthSquared() => X * X + Y * Y + Z * Z;

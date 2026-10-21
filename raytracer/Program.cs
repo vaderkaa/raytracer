@@ -6,18 +6,15 @@ class Program
 {
     static void Main(string[] args)
     {
-        Image image = new Image(1920, 1080);
-        
-        for (int i = 0; i < image.Width; i++)
-        {
-            for(int j = 0; j < image.Height; j++)
-            {
-                float r = (float)i / image.Width;
-                float g = (float)j / image.Height;
-                float b = MathF.Sin(2 * MathF.PI * ((float)i * j / image.Width / image.Height));
-                image[i, j] = new Vector3(r, g, b);
-            }
-        }
+        Scene world = new Scene();
+        world.Add(new Sphere(new Vector3(0, 0, -1), 0.5f));
+        world.Add(new Plane(new Vector3(0, -0.5f, 0), new Vector3(0, 1, 0)));
+
+        Camera cam = new Camera();
+        cam.Position = new Vector3(0, 0, 1);
+        cam.Target = new Vector3(0, 0, -1);
+
+        Image image = cam.Render(world);
 
         File.WriteAllText("image.ppm", image.ToString());
         //Console.WriteLine(image);

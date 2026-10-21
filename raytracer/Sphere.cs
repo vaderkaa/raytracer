@@ -11,20 +11,20 @@ public class Sphere : IHittable
         Radius = radius;
     }
 
-    bool Hit(Ray ray, float tMin, float tMax, out HitInfo hitInfo)
+    public bool Hit(Ray ray, float tMin, float tMax, out HitInfo hitInfo)
     {
         hitInfo = new HitInfo();
         Vector3 oc = ray.Origin - Center;
 
         float a = ray.Direction.LengthSquared();
-        float halfB = Vector3.Dot(oc, rayDirection);
+        float halfB = Vector3.Dot(oc, ray.Direction);
         float c = oc.LengthSquared() - Radius * Radius;
 
         float discriminant = halfB * halfB - a * c;
         if (discriminant < 0)
             return false;
 
-        float sqrt = MathF.Sqrt(discriminant);
+        float sqrtd = MathF.Sqrt(discriminant);
         float root = (-halfB - sqrtd) / a;
         if (root < tMin || tMax < root)
         {

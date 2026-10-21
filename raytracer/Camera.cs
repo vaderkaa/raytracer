@@ -72,4 +72,30 @@ public class Camera
         Vector3 viewportUpperLeft = Position - (distanceToViewport * w) - viewportU / 2.0f - viewportV / 2.0f;
         _viewportCorner = viewportUpperLeft + 0.5f * (_pixelDu + _pixelDv);
     }
+
+    public Image Render(IHittable world)
+    {
+        Image image = new Image(_imageWidth, _imageHeight);
+
+        for (int j = 0; j < _imageHeight; j++)
+        {
+            for (int i = 0; i < _imageWidth; i++)
+            {
+                Vector3 pixelCenter = _viewportCorner + (i * _pixelDu) + (j * _pixelDv);
+                Vector3 rayDirection = pixelCenter - Position;
+                Ray ray = new Ray(Position, rayDirection);
+
+                if (world.Hit(ray, 0.001f, float.PositiveInfinity, out HitInfo hitInfo))
+                {
+                    image[i, j] = new Vector3(1, 0, 0); // hit = red
+                }
+                else
+                {
+                    image[i, j] = new Vector3(0, 0, 0); // no hit = black
+                }
+            }
+        }
+
+        return image;
+    }
 }
