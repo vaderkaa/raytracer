@@ -4,6 +4,8 @@
 
 `readonly` - gwarantuje, że oznaczony nim element (zmienna, właściwość lub cała struktura) może otrzymać wartość tylko jeden raz podczas tworzenia w konstruktorze, po czym zostaje trwale zablokowany przed jakimikolwiek zmianami
 
+### Interface
+
 Interfejs to nic innego jak **pusty kontrakt**.   
 Kiedy przed chwilą rozmawiałyśmy o klasach abstrakcyjnych (Pojazd), określałyśmy to, **kim ktoś jest** (Samochód *jest* Pojazdem). Z kolei interfejs określa wyłącznie to, **co dany obiekt potrafi robić**, całkowicie ignorując to, czym ten obiekt fizycznie jest.   
 Najlepszą analogią w prawdziwym świecie jest standard USB. Klawiatura, pendrive, myszka i drukarka to zupełnie inne przedmioty, służące do innych rzeczy (miałyby inne klasy bazowe). Ale wszystkie one "podpisały kontrakt" o nazwie `IUsbCompatible`. Komputer nie musi wiedzieć, czym jest dane urządzenie – widzi certyfikat USB, więc wie, że może z nim rozmawiać.
@@ -33,8 +35,17 @@ Gdybyś w klasie `Counter` napisała logikę dla `MoveNext` oraz `Current`, ale 
 *(Dlatego w Twoim kodzie twórca napisał `Reset()`, nawet jeśli w środku wyrzuca tylko błąd `NotSupportedException` – musiał dostarczyć funkcję, żeby spełnić kontrakt).*
 
 **Po co nam interfejsy, skoro mamy klasy abstrakcyjne?**
+
 To najważniejsze pytanie. W języku C# obowiązuje żelazna zasada: **klasa może mieć tylko jednego biologicznego rodzica** (może dziedziczyć tylko po jednej klasie bazowej). Twój `Car` nie mógłby dziedziczyć jednocześnie po `Vehicle` i po `Weapon`.   
 Ale klasa może podpisać **dowolną liczbę interfejsów**.
 Dzięki temu możesz zbudować obiekt tak:
 `public class Car : Vehicle, IDrivable, IWashable, ISellable`.   
 Dzięki temu silnik fizyczny potraktuje go jako coś, co umie jeździć (`IDrivable`), myjnia potraktuje go jako obiekt, który da się umyć (`IWashable`), a sklep potraktuje go jako towar, który ma cenę (`ISellable`). Interfejsy pozwalają łączyć zupełnie różne obiekty w grupy na podstawie tego, co potrafią zrobić.
+
+**Dlaczego trzeba napisać List<IHittable> Objects?**
+
+Twoja klasa Scene to kontener na wszystko, co ma zostać narysowane na ekranie. Gdybyś napisała List<Sphere>, Twój worek akceptowałby wyłącznie kule. Gdybyś jutro chciała dodać do swojego raytracera płaską podłogę (Plane) albo trójkąt (Triangle), kompilator by na to nie pozwolił.
+
+Używając interfejsu jako typu w liście: List<IHittable>, Twój worek (lista) zyskuje swojego własnego Bramkarza. Ten bramkarz krzyczy: "Nie obchodzi mnie, czy jesteś kulą, płaszczyzną, trójkątem czy importowanym modelem 3D Wiedźmina. Jeśli tylko masz na ręce pieczątkę IHittable (czyli potrafisz przyjąć na siebie uderzenie promienia), wchodzisz do worka!"
+
+To kwintesencja programowania obiektowego (tzw. polimorfizm). Twój raytracer będzie potem miał jedną, prostą pętlę przelatującą przez ten worek.
