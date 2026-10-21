@@ -40,3 +40,10 @@ Ale klasa może podpisać **dowolną liczbę interfejsów**.
 Dzięki temu możesz zbudować obiekt tak:
 `public class Car : Vehicle, IDrivable, IWashable, ISellable`.   
 Dzięki temu silnik fizyczny potraktuje go jako coś, co umie jeździć (`IDrivable`), myjnia potraktuje go jako obiekt, który da się umyć (`IWashable`), a sklep potraktuje go jako towar, który ma cenę (`ISellable`). Interfejsy pozwalają łączyć zupełnie różne obiekty w grupy na podstawie tego, co potrafią zrobić.
+
+**Dlaczego trzeba napisać List<IHittable> Objects?**
+Twoja klasa Scene to kontener na wszystko, co ma zostać narysowane na ekranie. Gdybyś napisała List<Sphere>, Twój worek akceptowałby wyłącznie kule. Gdybyś jutro chciała dodać do swojego raytracera płaską podłogę (Plane) albo trójkąt (Triangle), kompilator by na to nie pozwolił.
+
+Używając interfejsu jako typu w liście: List<IHittable>, Twój worek (lista) zyskuje swojego własnego Bramkarza. Ten bramkarz krzyczy: "Nie obchodzi mnie, czy jesteś kulą, płaszczyzną, trójkątem czy importowanym modelem 3D Wiedźmina. Jeśli tylko masz na ręce pieczątkę IHittable (czyli potrafisz przyjąć na siebie uderzenie promienia), wchodzisz do worka!"
+
+To kwintesencja programowania obiektowego (tzw. polimorfizm). Twój raytracer będzie potem miał jedną, prostą pętlę przelatującą przez ten worek.
