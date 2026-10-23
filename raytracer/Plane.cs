@@ -4,11 +4,13 @@ public class Plane : IHittable
 {
     public Vector3 Point { get; set; }
     public Vector3 Normal { get; set; }
+    public Material Mat { get; set; }
 
-    public Plane(Vector3 point, Vector3 normal)
+    public Plane(Vector3 point, Vector3 normal, Material mat)
     {
         Point = point;
         Normal = normal.Normalize();
+        Mat = mat;
     }
 
     public bool Hit(Ray ray, float tMin, float tMax, out HitInfo hitInfo)
@@ -24,6 +26,7 @@ public class Plane : IHittable
                 hitInfo.T = t;
                 hitInfo.Position = ray.At(t);
                 hitInfo.SetFaceNormal(ray, Normal);
+                hitInfo.Mat = Mat;
                 return true;
             }
         }
